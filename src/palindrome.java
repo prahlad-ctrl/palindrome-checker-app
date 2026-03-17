@@ -1,21 +1,31 @@
 public class palindrome {
-    private static void palindromeUsingRecursion(String text) {
-        boolean result = isPalindromeRecursive(text, 0, text.length() - 1);
-        if (result) {
-            System.out.println("UC9 Result: \"" + text + "\" is a Palindrome.");
+    private static void palindromeIgnoreCaseAndSpaces(String text) {
+
+        String normalized = text.toLowerCase();
+        normalized = normalized.replaceAll("\\s+", "");
+
+        int start = 0;
+        int end = normalized.length() - 1;
+        boolean isPalindrome = true;
+
+        while (start < end) {
+
+            if (normalized.charAt(start) != normalized.charAt(end)) {
+                isPalindrome = false;
+                break;
+            }
+
+            start++;
+            end--;
+        }
+
+        if (isPalindrome) {
+            System.out.println("UC10 Result: \"" + text + "\" is a Palindrome (Ignoring case & spaces).");
         } else {
-            System.out.println("UC9 Result: \"" + text + "\" is NOT a Palindrome.");
+            System.out.println("UC10 Result: \"" + text + "\" is NOT a Palindrome (Ignoring case & spaces).");
         }
+
         System.out.println();
-    }
-    private static boolean isPalindromeRecursive(String text, int start, int end) {
-        if (start >= end) {
-            return true;
-        }
-        if (text.charAt(start) != text.charAt(end)) {
-            return false;
-        }
-        return isPalindromeRecursive(text, start + 1, end - 1);
     }
 }
 }
