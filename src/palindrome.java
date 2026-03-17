@@ -1,31 +1,34 @@
 public class palindrome {
-    private static void palindromeIgnoreCaseAndSpaces(String text) {
+    private static void palindromeUsingService(String text) {
 
-        String normalized = text.toLowerCase();
-        normalized = normalized.replaceAll("\\s+", "");
+        PalindromeService service = new PalindromeService();
+        boolean result = service.checkPalindrome(text);
 
-        int start = 0;
-        int end = normalized.length() - 1;
-        boolean isPalindrome = true;
-
-        while (start < end) {
-
-            if (normalized.charAt(start) != normalized.charAt(end)) {
-                isPalindrome = false;
-                break;
-            }
-
-            start++;
-            end--;
-        }
-
-        if (isPalindrome) {
-            System.out.println("UC10 Result: \"" + text + "\" is a Palindrome (Ignoring case & spaces).");
-        } else {
-            System.out.println("UC10 Result: \"" + text + "\" is NOT a Palindrome (Ignoring case & spaces).");
-        }
+        if (result)
+            System.out.println("UC11 Result (OOP Service): \"" + text + "\" is a Palindrome.");
+        else
+            System.out.println("UC11 Result (OOP Service): \"" + text + "\" is NOT a Palindrome.");
 
         System.out.println();
+    }
+
+    // Encapsulated Service Class
+    static class PalindromeService {
+
+        public boolean checkPalindrome(String text) {
+
+            char[] arr = text.toCharArray();
+            int start = 0;
+            int end = arr.length - 1;
+
+            while (start < end) {
+                if (arr[start] != arr[end])
+                    return false;
+                start++;
+                end--;
+            }
+            return true;
+        }
     }
 }
 }
