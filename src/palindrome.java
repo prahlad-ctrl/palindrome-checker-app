@@ -1,57 +1,29 @@
 public class palindrome {
-    private static void palindromeUsingStrategyPattern(String text) {
+    private static void performanceComparison(String text) {
 
-        PalindromeStrategy strategy;
+        System.out.println("===== UC13: Performance Comparison =====");
 
-        // Choose strategy dynamically
-        strategy = new StackStrategy();
-        boolean result1 = strategy.check(text);
+        long start, end;
 
-        System.out.println("UC12 Result (Stack Strategy): \"" + text + "\" → " + result1);
+        // Reverse Loop
+        start = System.nanoTime();
+        palindromeUsingReverse(text);
+        end = System.nanoTime();
+        System.out.println("Reverse Loop Time: " + (end - start) + " ns");
 
-        strategy = new DequeStrategy();
-        boolean result2 = strategy.check(text);
+        // Char Array
+        start = System.nanoTime();
+        palindromeUsingCharArray(text);
+        end = System.nanoTime();
+        System.out.println("Char Array Time: " + (end - start) + " ns");
 
-        System.out.println("UC12 Result (Deque Strategy): \"" + text + "\" → " + result2);
+        // Stack
+        start = System.nanoTime();
+        palindromeUsingStack(text);
+        end = System.nanoTime();
+        System.out.println("Stack Time: " + (end - start) + " ns");
 
-        System.out.println();
-    }
-
-    // Strategy Interface
-    interface PalindromeStrategy {
-        boolean check(String text);
-    }
-
-    // Stack Strategy Implementation
-    static class StackStrategy implements PalindromeStrategy {
-        public boolean check(String text) {
-
-            Stack<Character> stack = new Stack<>();
-            for (int i = 0; i < text.length(); i++)
-                stack.push(text.charAt(i));
-
-            for (int i = 0; i < text.length(); i++)
-                if (text.charAt(i) != stack.pop())
-                    return false;
-
-            return true;
-        }
-    }
-
-    // Deque Strategy Implementation
-    static class DequeStrategy implements PalindromeStrategy {
-        public boolean check(String text) {
-
-            Deque<Character> deque = new ArrayDeque<>();
-            for (int i = 0; i < text.length(); i++)
-                deque.addLast(text.charAt(i));
-
-            while (deque.size() > 1)
-                if (deque.removeFirst() != deque.removeLast())
-                    return false;
-
-            return true;
-        }
+        System.out.println("=========================================\n");
     }
 }
 }
